@@ -52,3 +52,6 @@ nnoremap <Leader>wf :match<CR>
 " For ctrlp
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
+" vim-airline
+set laststatus=2
+
