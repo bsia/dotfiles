@@ -1,34 +1,122 @@
 " Vim syntax file
-" Language:	Smali
-" Maintainer:   Angel Alonso <alderzdev@gmail.com>
-" Last Change:	2011 Jun 27
+" Language: Smali (Dalvik) Assembly
+" Maintainer:   Jon Larimer <jlarimer@gmail.com>
+" Last change:  2010 Jan 8
+"
+" Syntax highlighting for baksmali (Dalvik disassembler) output
 
-" Quit when a (custom) syntax file was already loaded
-if exists("b:current_syntax")
+" For version 5.x: Clear all syntax items
+" For version 6.x: Quit when a syntax file was already loaded
+if version < 600
+  syntax clear
+elseif exists("b:current_syntax")
   finish
 endif
 
-set iskeyword+=.
-set iskeyword+=-
+setlocal iskeyword=@,48-57,_,128-167,224-235,.,-,/
 
-syn keyword     sDirective  .annotation .array-data .catch .catchall .class .enum .epilogue .field .implements .line .local .locals .method .packed-switch .parameter .prologue .registers .restart .source .sparse-switch .subannotation .super
-syn keyword     sKeyword    abstract annotation bridge constructor declared-synchronized enum final interface native private protected public static strictfp synchronized synthetic system transient varargs volatile
-syn keyword     sFunction   add-double add-double/2addr add-float add-float/2addr add-int add-int/2addr add-int/lit16 add-int/lit8 add-long add-long/2addr aget aget-boolean aget-byte aget-char aget-object aget-short aget-wide and-int and-int/2addr and-int/lit16 and-int/lit8 and-long and-long/2addr aput aput-boolean aput-byte aput-char aput-object aput-short aput-wide array-length check-cast cmp-long cmpg-double cmpg-float cmpl-double cmpl-float const const-class const-string const-string-jumbo const-wide const-wide/16 const-wide/32 const-wide/high16 const/16 const/4 const/high16 div-double div-double/2addr div-float div-float/2addr div-int div-int/2addr div-int/lit16 div-int/lit8 div-long div-long/2addr double-to-float double-to-int double-to-long execute-inline fill-array-data filled-new-array filled-new-array/range float-to-double float-to-int float-to-long goto goto/16 goto/32 if-eq if-eqz if-ge if-gez if-gt if-gtz if-le if-lez if-lt if-ltz if-ne if-nez iget iget-boolean iget-byte iget-char iget-object iget-object-quick iget-quick iget-short iget-wide iget-wide-quick instance-of int-to-byte int-to-char int-to-double int-to-float int-to-long int-to-short invoke-direct invoke-direct-empty invoke-direct/range invoke-interface invoke-interface/range invoke-static invoke-static/range invoke-super invoke-super-quick invoke-super-quick/range invoke-super/range invoke-virtual invoke-virtual-quick invoke-virtual-quick/range invoke-virtual/range iput iput-boolean iput-byte iput-char iput-object iput-object-quick iput-quick iput-short iput-wide iput-wide-quick long-to-double long-to-float long-to-int monitor-enter monitor-exit move move-exception move-object move-object/16 move-object/from16 move-result move-result-object move-result-wide move-wide move-wide/16 move-wide/from16 move/16 move/from16 mul-double mul-double/2addr mul-float mul-float/2addr mul-int mul-int/2addr mul-int/lit8 mul-int/lit16 mul-long mul-long/2addr neg-double neg-float neg-int neg-long new-array new-instance nop not-int not-long or-int or-int/2addr or-int/lit16 or-int/lit8 or-long or-long/2addr rem-double rem-double/2addr rem-float rem-float/2addr rem-int rem-int/2addr rem-int/lit16 rem-int/lit8 rem-long rem-long/2addr return return-object return-void return-wide sget sget-boolean sget-byte sget-char sget-object sget-short sget-wide shl-int shl-int/2addr shl-int/lit8 shl-long shl-long/2addr shr-int shr-int/2addr shr-int/lit8 shr-long shr-long/2addr sparse-switch sput sput-boolean sput-byte sput-char sput-object sput-short sput-wide sub-double sub-double/2addr sub-float sub-float/2addr sub-int sub-int/2addr sub-int/lit16 sub-int/lit8 sub-long sub-long/2addr throw ushr-int ushr-int/2addr ushr-int/lit8 ushr-long ushr-long/2addr xor-int xor-int/2addr xor-int/lit16 xor-int/lit8 xor-long xor-long/2addr packed-switch
-syn keyword     sVariable   v0 v1 v2 v3 v4 v5 v6 v7 v8 v9 v10 v11 v12 v13 v14 v15 v16 v17 v18 v19 v20 v21 v22 v23 v24 v25 v26 v27 v28 v29 v30 v31 v32 v33 v34 v35 v36 v37 v38 v39 v40 p0 p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20
+syn region dalvikComment start="#" keepend end="$"
 
-syn match   sNumber		 "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
-syn match   sNumber		 "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
-syn match   sNumber		 "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
-syn match   sNumber		 "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
+" directives
+syn keyword dalvikDirective .class .super .implements .field
+syn keyword dalvikDirective .subannotation .annotation 
+syn keyword dalvikDirective .enum .method .registers .locals .array-data
+syn keyword dalvikDirective .packed-switch 
+syn keyword dalvikDirective .sparse-switch .catch .catchall .line
+syn keyword dalvikDirective .parameter .local 
+syn keyword dalvikDirective .prologue .epilogue
+syn keyword dalvikDirective .source
+syn match dalvikDirective /\.end\s\+\(field\|subannotation\|annotation\|method\|array-data\)/
+syn match dalvikDirective /\.end\s\+\(packed-switch\|sparse-switch\|parameter\|local\)/
+syn match dalvikDirective /\.restart\s+local/
 
-syn region      sComment    start="#" end="$" keepend
-syn region      sDirective  start="\.end" end="$" keepend
+" access modifiers
+syn keyword dalvikAccess public private protected static final synchronized bridge varargs
+syn keyword dalvikAccess native abstract strictfp synthetic constructor declared-synchronized
+syn keyword dalvikAccess interface enum annotation volatile transient
 
-hi def link     sDirective  Include
-hi def link     sKeyword    Label
-hi def link     sFunction   Label
-hi def link     sVariable   Operator
-hi def link     sComment    Comment
-hi def link     sNumber     Number
+" instructions
+syn keyword dalvikInstruction goto return-void nop const/4 move-result move-result-wide 
+syn keyword dalvikInstruction move-result-object move-exception return return-wide 
+syn keyword dalvikInstruction return-object monitor-enter monitor-exit throw move 
+syn keyword dalvikInstruction move-wide move-object array-length neg-int not-int neg-long 
+syn keyword dalvikInstruction not-long neg-float neg-double int-to-long int-to-float 
+syn keyword dalvikInstruction int-to-double long-to-int long-to-float long-to-double 
+syn keyword dalvikInstruction float-to-int float-to-long float-to-double double-to-int 
+syn keyword dalvikInstruction double-to-long double-to-float int-to-byte int-to-char 
+syn keyword dalvikInstruction int-to-short add-int/2addr sub-int/2addr mul-int/2addr 
+syn keyword dalvikInstruction div-int/2addr rem-int/2addr and-int/2addr or-int/2addr 
+syn keyword dalvikInstruction xor-int/2addr shl-int/2addr shr-int/2addr ushr-int/2addr 
+syn keyword dalvikInstruction add-long/2addr sub-long/2addr mul-long/2addr div-long/2addr 
+syn keyword dalvikInstruction rem-long/2addr and-long/2addr or-long/2addr xor-long/2addr 
+syn keyword dalvikInstruction shl-long/2addr shr-long/2addr ushr-long/2addr add-float/2addr 
+syn keyword dalvikInstruction sub-float/2addr mul-float/2addr div-float/2addr rem-float/2addr 
+syn keyword dalvikInstruction add-double/2addr sub-double/2addr mul-double/2addr 
+syn keyword dalvikInstruction div-double/2addr rem-double/2addr goto/16 sget sget-wide 
+syn keyword dalvikInstruction sget-object sget-boolean sget-byte sget-char sget-short sput 
+syn keyword dalvikInstruction sput-wide sput-object sput-boolean sput-byte sput-char sput-short 
+syn keyword dalvikInstruction const-string check-cast new-instance const-class const/high16 
+syn keyword dalvikInstruction const-wide/high16 const/16 const-wide/16 if-eqz if-nez if-ltz 
+syn keyword dalvikInstruction if-gez if-gtz if-lez add-int/lit8 rsub-int/lit8 mul-int/lit8 
+syn keyword dalvikInstruction div-int/lit8 rem-int/lit8 and-int/lit8 or-int/lit8 xor-int/lit8 
+syn keyword dalvikInstruction shl-int/lit8 shr-int/lit8 ushr-int/lit8 iget iget-wide iget-object 
+syn keyword dalvikInstruction iget-boolean iget-byte iget-char iget-short iput iput-wide iput-object 
+syn keyword dalvikInstruction iput-boolean iput-byte iput-char iput-short instance-of new-array 
+syn keyword dalvikInstruction iget-quick iget-wide-quick iget-object-quick iput-quick 
+syn keyword dalvikInstruction iput-wide-quick iput-object-quick rsub-int add-int/lit16 mul-int/lit16 
+syn keyword dalvikInstruction div-int/lit16 rem-int/lit16 and-int/lit16 or-int/lit16 xor-int/lit16 
+syn keyword dalvikInstruction if-eq if-ne if-lt if-ge if-gt if-le move/from16 move-wide/from16 
+syn keyword dalvikInstruction move-object/from16 cmpl-float cmpg-float cmpl-double cmpg-double 
+syn keyword dalvikInstruction cmp-long aget aget-wide aget-object aget-boolean aget-byte aget-char 
+syn keyword dalvikInstruction aget-short aput aput-wide aput-object aput-boolean aput-byte aput-char 
+syn keyword dalvikInstruction aput-short add-int sub-int mul-int div-int rem-int and-int or-int 
+syn keyword dalvikInstruction xor-int shl-int shr-int ushr-int add-long sub-long mul-long div-long 
+syn keyword dalvikInstruction rem-long and-long or-long xor-long shl-long shr-long ushr-long 
+syn keyword dalvikInstruction add-float sub-float mul-float div-float rem-float add-double 
+syn keyword dalvikInstruction sub-double mul-double div-double rem-double goto/32 const-string/jumbo 
+syn keyword dalvikInstruction const const-wide/32 fill-array-data packed-switch sparse-switch move/16 
+syn keyword dalvikInstruction move-wide/16 move-object/16 invoke-virtual invoke-super invoke-direct 
+syn keyword dalvikInstruction invoke-static invoke-interface filled-new-array invoke-direct-empty 
+syn keyword dalvikInstruction execute-inline invoke-virtual-quick invoke-super-quick 
+syn keyword dalvikInstruction invoke-virtual/range invoke-super/range invoke-direct/range 
+syn keyword dalvikInstruction invoke-static/range invoke-interface/range filled-new-array/range 
+syn keyword dalvikInstruction invoke-virtual-quick/range invoke-super-quick/range const-wide 
+
+" class names (between L and ;)
+syn region dalvikName matchgroup=dalvikNameWrapper start="L" end=";" oneline 
+syn region dalvikString start=+"+ end=+"+
+
+" branch labels
+syn match dalvikLabel "\<[A-Za-z0-9_]\+\>:$"
+
+" registers
+syn match dalvikRegister "\<[vp]\d\+\>"
+
+" number literals
+syn match dalvikNumber       "\<\-\?\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lLst]\=\>"
+syn match dalvikNumber       "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
+syn match dalvikNumber       "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
+syn match dalvikNumber       "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
+
+" default colors (for background=dark):
+" Comment/Identifier = cyan
+" Constant = magenta
+" Special = lightred
+" Identifier = cyan
+" Statement = yellow
+" PreProc = lightblue
+" Type = lightgreen
+
+hi def link dalvikDirective PreProc
+hi def link dalvikAccess Statement
+hi def link dalvikComment Comment
+hi def link dalvikName Constant
+"hi def link dalvikNameWrapper Special
+hi def link dalvikNumber Constant
+hi def link dalvikString Constant
+hi def link dalvikLabel Statement
+hi def link dalvikRegister Special
+hi def link dalvikInstruction Type
 
 let b:current_syntax = "smali"
+

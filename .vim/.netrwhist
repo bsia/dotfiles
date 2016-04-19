@@ -1,9 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/bsia/Documents/mocana/2015-05/concur/ConcurMobile.Android9.20.BUILD100.REV94f4ec2.BUILDVER37150323'
-let g:netrw_dirhist_2='/Users/bsia/src/prometheus/unittest/test_atlas_client_perp'
-let g:netrw_dirhist_3='/Users/bsia/src/prometheus/apps/promcli'
-let g:netrw_dirhist_4='/Users/bsia/src/prometheus-mobile/.git'
-let g:netrw_dirhist_5='/Users/bsia/src/prometheus-mobile/apps/android/atlas-connect-ui/mobile'
-let g:netrw_dirhist_6='/Users/bsia/src/prometheus/unittest/test_basic_connect'
-let g:netrw_dirhist_7='/Users/bsia/src/opensource/dotfiles/.vim'
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users'
+let g:netrw_dirhist_2='/'
+let g:netrw_dirhist_3='/home'
+let g:netrw_dirhist_4='/'
