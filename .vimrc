@@ -11,8 +11,8 @@ execute pathogen#infect()
 :set smartindent
 :set ruler
 :set incsearch
+:set nowrapscan
 
-":set tags=/Users/barrysia/.tags
 :set complete=.,w,b,u,t,i
 set noswapfile
 set t_Co=256
@@ -24,9 +24,13 @@ map <C-t><down> :tabl<cr>
 map <C-t><left> :tabp<cr>
 map <C-t><right> :tabn<cr>
 
+"yaml syntax
+au BufNewFile,BufRead *.yaml,*.yml so ~/.vim/yaml.vim
+
 let mapleader = ","
 let g:CommandTMaxFiles=100000
 
+let g:clang_load_if_clang_dotfile=1
 
 "ctrlp options
 let g:ctrlp_max_files=0
@@ -83,8 +87,14 @@ Bundle 'tComment'
 Bundle 'tpope/vim-fugitive'
 Bundle 'ZoomWin'
 
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+
 filetype plugin indent on
 " End Vundle specific
 
 
+set cino=N-s,g-1
 set runtimepath^=~/.vim/bundle/ag
