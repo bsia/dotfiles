@@ -19,11 +19,13 @@ set autoread
 call plug#begin()
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'SirVer/ultisnips'
+"Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'altercation/vim-colors-solarized'
 Plug 'iCyMind/NeoSolarized'
 Plug 'scrooloose/nerdcommenter'
+Plug 'udalov/kotlin-vim'
+Plug 'tfnico/vim-gradle'
 call plug#end()
 
 
