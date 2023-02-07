@@ -13,7 +13,6 @@ let &packpath = &runtimepath
 :set ruler
 :set incsearch
 :set nowrapscan
-set noswapfile
 set autoread
 
 call plug#begin()
@@ -26,6 +25,8 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'scrooloose/nerdcommenter'
 Plug 'udalov/kotlin-vim'
 Plug 'tfnico/vim-gradle'
+Plug 'sainnhe/sonokai'
+Plug 'udalov/kotlin-vim'
 call plug#end()
 
 
@@ -36,4 +37,6 @@ colorscheme NeoSolarized
 set background=dark
 
 au BufNewFile,BufRead *.gradle setf groovy
+au FileType gitcommit setlocal tw=72
+
 
